@@ -5,7 +5,7 @@ type Post {
   author: User!,
 }
 
-input UserInput {
+input PostInput {
   title: String!,
   content: String!,
   author: ID!,
@@ -17,7 +17,7 @@ type Query {
 }
 
 type Mutation {
-  createPost(data: UserInput!): Post!
-  updatePost(id: ID!, data: UserInput): Post!
+  createPost(data: PostInput!): Post!
+  updatePost(id: ID!, data: PostInput): Post!
   deletePost(id: ID!): Boolean
 }
