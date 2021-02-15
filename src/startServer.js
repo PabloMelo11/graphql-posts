@@ -1,3 +1,4 @@
+import http from 'http';
 import express from 'express';
 import { ApolloServer, PubSub } from 'apollo-server-express';
 import mongoose from 'mongoose';
@@ -10,6 +11,7 @@ function startServer({ typeDefs, resolvers }) {
     useUnifiedTopology: true,
   });
 
+  const PORT = 4000;
   const app = express();
 
   app.use(isAuth);
@@ -27,8 +29,16 @@ function startServer({ typeDefs, resolvers }) {
 
   server.applyMiddleware({ app });
 
-  app.listen(4000, () => {
-    console.log('Server is running');
+  const httpServer = http.createServer(app);
+  server.installSubscriptionHandlers(httpServer);
+
+  httpServer.listen(PORT, () => {
+    console.log(
+      `🚀 Server ready at http://localhost:${PORT}${server.graphqlPath}`
+    );
+    console.log(
+      `🚀 Subscriptions ready at ws://localhost:${PORT}${server.subscriptionsPath}`
+    );
   });
 }
 
