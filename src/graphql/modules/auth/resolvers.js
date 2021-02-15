@@ -13,6 +13,7 @@ export default {
 
       const token = sign({}, 'secret', {
         expiresIn: '1h',
+        subject: String(user._id),
       });
 
       return {
