@@ -1,0 +1,12 @@
+type Auth {
+  user: User!
+  token: String!
+}
+
+input AuthInput {
+  email: String!
+}
+
+type Mutation {
+  authentication(data: AuthInput!): Auth!
+}
