@@ -1,21 +1,23 @@
 type User {
-  _id: ID!,
-  firstName: String!,
-  lastName: String!,
-  fullName: String!,
-  email: String,
+  _id: ID!
+  firstName: String!
+  lastName: String!
+  fullName: String!
+  email: String
+  password: String
   active: Boolean!
 }
 
 input UserInput {
-  firstName: String!, 
-  lastName: String!, 
-  email: String!, 
+  firstName: String!
+  lastName: String!
+  email: String!
+  password: String!
   active: Boolean!
 }
 
 type Query {
-  users: [User!]!,
+  users: [User!]!
   user(id: ID!): User!
 }
 

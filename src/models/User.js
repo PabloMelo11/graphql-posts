@@ -10,10 +10,11 @@ const Schema = new mongoose.Schema({
     required: true,
   },
   email: String,
+  password: String,
   active: {
     type: Boolean,
     required: true,
-  }
+  },
 });
 
-export default mongoose.model("User", Schema);
+export default mongoose.model('User', Schema);
