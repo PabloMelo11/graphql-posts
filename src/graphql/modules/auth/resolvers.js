@@ -1,3 +1,4 @@
+import { compare } from 'bcryptjs';
 import { sign } from 'jsonwebtoken';
 
 import User from '../../../models/User';
@@ -8,7 +9,13 @@ export default {
       const user = await User.findOne({ email: data.email });
 
       if (!user) {
-        throw new Error('User does not exists!');
+        throw new Error('Incorrect email/password combination');
+      }
+
+      const passwordMatched = await compare(data.password, user.password);
+
+      if (!passwordMatched) {
+        throw new Error('Incorrect email/password combination');
       }
 
       const token = sign({}, 'secret', {

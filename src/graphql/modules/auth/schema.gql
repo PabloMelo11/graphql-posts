@@ -5,6 +5,7 @@ type Auth {
 
 input AuthInput {
   email: String!
+  password: String!
 }
 
 type Mutation {
