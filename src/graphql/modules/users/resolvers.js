@@ -57,12 +57,11 @@ export default {
 
       await fileStream.pipe(fs.createWriteStream(`${tmpFolder}/${fileName}`));
 
-      const user = await User.updateOne(
-        { _id: req.user.id },
-        { $set: { avatar: fileName } }
+      return User.findOneAndUpdate(
+        req.user.id,
+        { avatar: fileName },
+        { new: true }
       );
-
-      return user;
     },
   },
 

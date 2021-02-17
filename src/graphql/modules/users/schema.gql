@@ -10,11 +10,11 @@ type User {
 }
 
 input UserInput {
-  firstName: String!
-  lastName: String!
-  email: String!
-  password: String!
-  active: Boolean!
+  firstName: String
+  lastName: String
+  email: String
+  password: String
+  active: Boolean
 }
 
 type Query {
