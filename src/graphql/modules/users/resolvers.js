@@ -55,15 +55,12 @@ export default {
         'uploads'
       );
 
-      fileStream.pipe(fs.createWriteStream(`${tmpFolder}/${fileName}`));
+      await fileStream.pipe(fs.createWriteStream(`${tmpFolder}/${fileName}`));
 
-      const user = await User.findOneAndUpdate(
-        req.user.id,
-        { $set: { avatar: fileName } },
-        { new: true }
+      const user = await User.updateOne(
+        { _id: req.user.id },
+        { $set: { avatar: fileName } }
       );
-
-      console.log(user);
 
       return user;
     },

@@ -6,7 +6,7 @@ type User {
   email: String
   password: String
   active: Boolean!
-  avatar: String!
+  avatar: String
 }
 
 input UserInput {
