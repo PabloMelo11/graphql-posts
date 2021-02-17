@@ -1,3 +1,6 @@
+import crypto from 'crypto';
+import path from 'path';
+import fs from 'fs';
 import { hash } from 'bcryptjs';
 
 import User from '../../../models/User';
@@ -30,6 +33,40 @@ export default {
     updateUser: (_, { id, data }) =>
       User.findOneAndUpdate(id, data, { new: true }),
     deleteUser: async (_, { id }) => !!(await User.findOneAndDelete(id)),
+    uploadAvatar: async (_, { file }, { req }) => {
+      if (!req.isAuth) {
+        throw new Error('JWT token is missing');
+      }
+
+      const { filename, createReadStream } = await file;
+
+      const fileStream = createReadStream();
+
+      const fileHash = crypto.randomBytes(10).toString('hex');
+      const fileName = `${fileHash}-${filename}`;
+
+      const tmpFolder = path.resolve(
+        __dirname,
+        '..',
+        '..',
+        '..',
+        '..',
+        'tmp',
+        'uploads'
+      );
+
+      fileStream.pipe(fs.createWriteStream(`${tmpFolder}/${fileName}`));
+
+      const user = await User.findOneAndUpdate(
+        req.user.id,
+        { $set: { avatar: fileName } },
+        { new: true }
+      );
+
+      console.log(user);
+
+      return user;
+    },
   },
 
   Subscription: {

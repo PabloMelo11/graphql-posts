@@ -6,6 +6,7 @@ type User {
   email: String
   password: String
   active: Boolean!
+  avatar: String!
 }
 
 input UserInput {
@@ -25,6 +26,7 @@ type Mutation {
   createUser(data: UserInput!): User!
   updateUser(id: ID!, data: UserInput): User!
   deleteUser(id: ID!): Boolean
+  uploadAvatar(file: Upload!): User!
 }
 
 type Subscription {

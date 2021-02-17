@@ -11,6 +11,7 @@ const Schema = new mongoose.Schema({
   },
   email: String,
   password: String,
+  avatar: String,
   active: {
     type: Boolean,
     required: true,
